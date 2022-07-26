@@ -59,6 +59,8 @@ services:
     volumes:
       - elasticsearch_log:/usr/share/elasticsearch/logs
       - elasticsearch_data:/usr/share/elasticsearch/data
+    environment:
+      ES_JAVA_OPTS: "-Xms750m -Xmx750m"
 
   neo4j:
     container_name: neo4j

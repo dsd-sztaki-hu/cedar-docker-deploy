@@ -76,6 +76,7 @@ services:
       - CEDAR_KEYCLOAK_HTTP_PORT
       - CEDAR_REDIS_PERSISTENT_HOST
       - CEDAR_REDIS_PERSISTENT_PORT
+      - CEDAR_ADMIN_USER_PASSWORD
   submission-server:
     depends_on:
         - cedar-microservice
@@ -232,6 +233,7 @@ services:
       - CEDAR_SUBMISSION_TEMPLATE_ID_2
       - CEDAR_VALUERECOMMENDER_HTTP_PORT
       - CEDAR_RESOURCE_ADMIN_PORT
+      - CEDAR_TRUSTED_FOLDERS
   valuerecommender-server:
     depends_on:
         - cedar-microservice
@@ -377,6 +379,8 @@ services:
       - CEDAR_SUBMISSION_TEMPLATE_ID_2
       - CEDAR_ARTIFACT_HTTP_PORT
       - CEDAR_ARTIFACT_ADMIN_PORT
+      - CEDAR_CADSR_ONTOLOGIES_FOLDER
+      - CEDAR_TRUSTED_FOLDERS
     extra_hosts:
       - "auth.${CEDAR_HOST}:${CEDAR_NET_GATEWAY}"
   messaging-server:
@@ -494,6 +498,7 @@ services:
       - CEDAR_LOG_MYSQL_DB
       - CEDAR_LOG_MYSQL_USER
       - CEDAR_LOG_MYSQL_PASSWORD
+      - CEDAR_CADSR_ADMIN_USER_API_KEY
   impex-server:
     depends_on:
       - cedar-microservice
@@ -537,6 +542,7 @@ services:
       - CEDAR_LOG_MYSQL_DB
       - CEDAR_LOG_MYSQL_USER
       - CEDAR_LOG_MYSQL_PASSWORD
+      - CEDAR_CADSR_ADMIN_USER_API_KEY
 
 networks:
   cedarnet:
