@@ -9,7 +9,7 @@
 
 # Make ^C stop the whole script
 trap '' INT
-
+trap "exit" INT
 
 source ./checkss.sh
 
@@ -60,13 +60,14 @@ if [ ! -z "$PLATFORM_INPUT" ]
 then
   PLATFORM=$PLATFORM_INPUT
 fi
-BRANCH=arp-$PLATFORM
+export BRANCH=arp-$PLATFORM
 
 # Dump the latest env vars to .env.sh so that the next time we run the script, we will have these as defaults
 cat > .env.sh << END
 export CEDAR_DOCKER_HOME=$CEDAR_DOCKER_HOME
 export CEDAR_HOME=$CEDAR_HOME
 export PLATFORM=$PLATFORM
+export BRANCH=arp-$PLATFORM
 END
 
 export CEDAR_DOCKER_HOME=`realpath $CEDAR_DOCKER_HOME`
