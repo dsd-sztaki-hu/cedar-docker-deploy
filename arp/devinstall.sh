@@ -21,10 +21,10 @@ case `uname -a` in
   *x86_64*)  PLATFORM=intel ;;
 esac
 
-#CEDAR_DOCKER_HOME=${HOME}/CEDAR_DOCKER
-#CEDAR_HOME=${HOME}/CEDAR
-CEDAR_DOCKER_HOME=./CEDAR_DOCKER
-CEDAR_HOME=./CEDAR
+CEDAR_DOCKER_HOME=${HOME}/CEDAR_DOCKER
+CEDAR_HOME=${HOME}/CEDAR
+#CEDAR_DOCKER_HOME=./CEDAR_DOCKER
+#CEDAR_HOME=./CEDAR
 
 # If we have previously set the value for above, load them from .env.sh as the defaults
 if [[ -f "./.env.sh" ]]; then
