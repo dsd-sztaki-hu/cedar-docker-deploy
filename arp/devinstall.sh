@@ -11,8 +11,6 @@
 trap '' INT
 trap "exit" INT
 
-source ./checkss.sh
-
 # M1 with rosetta: Darwin beep-mbp.local 21.3.0 Darwin Kernel Version 21.3.0: Wed Jan  5 21:37:58 PST 2022; root:xnu-8019.80.24~20/RELEASE_ARM64_T6000 x86_64
 # M1 native: Darwin beep-mbp.local 21.3.0 Darwin Kernel Version 21.3.0: Wed Jan  5 21:37:58 PST 2022; root:xnu-8019.80.24~20/RELEASE_ARM64_T6000 arm64
 case `uname -a` in
@@ -62,6 +60,9 @@ then
 fi
 export BRANCH=arp-$PLATFORM
 
+export CEDAR_DOCKER_HOME=`realpath $CEDAR_DOCKER_HOME`
+export CEDAR_HOME=`realpath $CEDAR_HOME`
+
 # Dump the latest env vars to .env.sh so that the next time we run the script, we will have these as defaults
 cat > .env.sh << END
 export CEDAR_DOCKER_HOME=$CEDAR_DOCKER_HOME
@@ -70,8 +71,6 @@ export PLATFORM=$PLATFORM
 export BRANCH=arp-$PLATFORM
 END
 
-export CEDAR_DOCKER_HOME=`realpath $CEDAR_DOCKER_HOME`
-export CEDAR_HOME=`realpath $CEDAR_HOME`
 
 # Generate .bashrc comands
 cat << END
@@ -93,6 +92,10 @@ alias ceddev="source \${CEDAR_HOME}/cedar-profile-native-develop.sh"
 
 
 END
+
+echo "Press enter after commands added to .bashrc to continue!"
+read PRESSED
+
 
 ./infrainstall.sh
 

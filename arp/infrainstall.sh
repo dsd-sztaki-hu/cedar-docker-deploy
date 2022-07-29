@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
+#
+# Installs the infra in docker. Called from devinstall.sh.
+#
 
-source ./checkss.sh
-
-if [[ -f "./.env.sh" ]]; then
-  source ./.env.sh
-fi
-
-export CEDAR_DOCKER_HOME=`realpath $CEDAR_DOCKER_HOME`
-export CEDAR_HOME=`realpath $CEDAR_HOME`
+source ./common.sh
 
 # We will use these aliases to configure approriate env vars for dev/docker environments
 shopt -s expand_aliases
@@ -77,33 +73,35 @@ docker image rm `docker image ls | grep cedar | awk '{print $3}'`; \
 source ${CEDAR_DOCKER_DEPLOY}/bin/docker-create-volumes.sh && \
 source ${CEDAR_DOCKER_DEPLOY}/bin/docker-copy-certificates.sh)
 
-printf "\n\n+++++ Starting cedar infrastructure\n\n"
+#printf "\n\n+++++ Starting cedar infrastructure\n\n"
+#
+#( startinfrastructure ) &
+##( goinfrastructure && docker-compose up neo4j) &
+#
+## Wait a bit for the services to start
+#sleep 40
+#
+## Check for running services 50 times
+#for i in {1..30}; do
+#  checkss "MongoDB Elasticsearch-REST Elasticsearch-Transport NGINX Keycloak Neo4j Redis-persistent MySQL"
+#  if [[ $WAITING_FOR == "" ]]
+#  then
+#    printf "\n+++++ All up and running!\n\n"
+#    break
+#  else
+#    printf "\n+++++ Waiting for: $WAITING_FOR ($i/30)\n\n"
+#  fi
+#  sleep 3
+#done
+#
+## Neo4j and Elasticsearch-REST somehow can get stuck and don't start up, in which case one should rerun this script
+## and it eventually run OK.
+## Or just: goinfrastructure && docker-compose down && docker-compose up
+#if [[ ! $WAITING_FOR == "" ]]; then
+#    printf "\n+++++ Starting all CEDAR infra services failed. Not running: $WAITING_FOR.\n"
+#    printf "+++++ Neo4j and Elasticsearch-REST somehow can get stuck and don't start up, in which case one should rerun this script and it eventually run OK.\n\n"
+#    kill %1
+#    exit -1
+#fi
 
-( startinfrastructure ) &
-#( goinfrastructure && docker-compose up neo4j) &
-
-# Wait a bit for the services to start
-sleep 40
-
-# Check for running services 50 times
-for i in {1..30}; do
-  checkss "MongoDB Elasticsearch-REST Elasticsearch-Transport NGINX Keycloak Neo4j Redis-persistent MySQL"
-  if [[ $WAITING_FOR == "" ]]
-  then
-    printf "\n+++++ All up and running!\n\n"
-    break
-  else
-    printf "\n+++++ Waiting for: $WAITING_FOR ($i/30)\n\n"
-  fi
-  sleep 3
-done
-
-# Neo4j and Elasticsearch-REST somehow can get stuck and don't start up, in which case one should rerun this script
-# and it eventually run OK.
-# Or just: goinfrastructure && docker-compose down && docker-compose up
-if [[ ! $WAITING_FOR == "" ]]; then
-    printf "\n+++++ Starting all CEDAR infra services failed. Not running: $WAITING_FOR.\n"
-    printf "+++++ Neo4j and Elasticsearch-REST somehow can get stuck and don't start up, in which case one should rerun this script and it eventually run OK.\n\n"
-    kill %1
-    exit -1
-fi
+./infrastart.sh
