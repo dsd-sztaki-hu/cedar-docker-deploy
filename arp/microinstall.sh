@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
+#
+# Builds and configures the CEDAR microservices. Called from devinstall.sh.
+#
 
-source ./checkss.sh
+# Remember where we started
+CURRDIR=`dirname "$0"`
+CURRDIR=`realpath $CURRDIR`
 
-if [[ -f "./.env.sh" ]]; then
-  source ./.env.sh
-fi
-
-export CEDAR_DOCKER_HOME=`realpath $CEDAR_DOCKER_HOME`
-export CEDAR_HOME=`realpath $CEDAR_HOME`
+source ./common.sh
 
 # We will use these aliases to configure approriate env vars for dev/docker environments
 shopt -s expand_aliases
@@ -45,9 +45,6 @@ else
   echo "$CEDAR_HOME already exists"
 fi
 
-
-
-
 printf "\n+++++ Adding microservice mysql users: cedarMySQLMessagingUser, cedarMySQLLogUser\n\n"
 
 # docker run -it --network cedarnet --rm mysql mysql --host=mysql -uroot --port=3306 --protocol=TCP -pchangeme
@@ -78,29 +75,9 @@ createjaxb2workaround
 goproject
 mcit
 
-printf "\n+++++ Starting all CEDAR microservices for configuration\n\n"
-
-( startall ) &
-
-# Check for running services 30 times
-sleep 15
-for i in {1..30}; do
-  checkss "Artifact Group Impex Internals Messaging OpenView Repo Resource Schema Submission Terminology User ValueRecommender Worker"
-  if [[ $WAITING_FOR == "" ]]
-  then
-    printf "\n+++++ All up and running!\n\n"
-    break
-  else
-    printf "\n+++++ Waiting for: $WAITING_FOR ($i/30)\n\n"
-  fi
-  sleep 3
-done
-
-if [[ ! $WAITING_FOR == "" ]]; then
-    printf "\n+++++ Starting all CEDAR microservices failed. Not running: $WAITING_FOR.\n"
-    killall java
-    exit -1
-fi
+# We are in some other dir, so cd back to our script dir
+cd $CURRDIR
+./microstart.sh
 
 printf "\n+++++ Configuring CEDAR services\n\n"
 
