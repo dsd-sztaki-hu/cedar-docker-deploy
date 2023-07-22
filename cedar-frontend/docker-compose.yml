@@ -13,6 +13,8 @@ services:
       - log_frontend_main:/log
     environment:
       - CEDAR_HOST
+      - CEDAR_FRONTEND_ARP_API_URL=${CEDAR_FRONTEND_ARP_API_URL}
+      - CEDAR_FRONTEND_ARP_DV_COLLECTION=${CEDAR_FRONTEND_ARP_DV_COLLECTION}
   frontend-component:
     container_name: frontend-component
     image: "metadatacenter/cedar-frontend-component:${CEDAR_DOCKER_VERSION}"
