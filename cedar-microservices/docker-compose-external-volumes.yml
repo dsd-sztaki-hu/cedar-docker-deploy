@@ -1,0 +1,64 @@
+version: '3.6'
+services:
+  server-schema:
+    volumes:
+      - ./mount/log_schema:/cedar/log/server-schema/
+      - cedar_ca:/cedar/ca
+  server-user:
+    volumes:
+      - ./mount/log_user:/cedar/log/server-user/
+      - cedar_ca:/cedar/ca
+  server-submission:
+    volumes:
+      - ./mount/log_submission:/cedar/log/server-submission/
+      - cedar_ca:/cedar/ca
+  server-group:
+    volumes:
+      - ./mount/log_group:/cedar/log/server-group/
+      - cedar_ca:/cedar/ca
+  server-artifact:
+    volumes:
+      - ./mount/log_artifact:/cedar/log/server-artifact/
+      - cedar_ca:/cedar/ca
+  server-worker:
+    volumes:
+      - ./mount/log_worker:/cedar/log/server-worker/
+      - cedar_ca:/cedar/ca
+  server-valuerecommender:
+    volumes:
+      - ./mount/log_valuerecommender:/cedar/log/server-valuerecommender/
+      - cedar_ca:/cedar/ca
+  server-terminology:
+    volumes:
+      - ./mount/log_terminology:/cedar/log/server-terminology/
+      - ./mount/terminology_data:/cedar/cache/terminology/
+      - cedar_ca:/cedar/ca
+  server-repo:
+    volumes:
+      - ./mount/log_repo:/cedar/log/server-repo/
+      - cedar_ca:/cedar/ca
+  server-resource:
+    volumes:
+      - ./mount/log_resource:/cedar/log/server-resource/
+      - ./mount/resource_state:/state
+      - cedar_ca:/cedar/ca
+  server-messaging:
+    volumes:
+      - ./mount/log_messaging:/cedar/log/server-messaging/
+      - cedar_ca:/cedar/ca
+  server-openview:
+    volumes:
+      - ./mount/log_openview:/cedar/log/server-openview/
+      - cedar_ca:/cedar/ca
+  server-monitor:
+    volumes:
+      - ./mount/log_monitor:/cedar/log/server-monitor/
+      - cedar_ca:/cedar/ca
+  server-impex:
+    volumes:
+      - ./mount/log_impex:/cedar/log/server-impex/
+      - cedar_ca:/cedar/ca
+  server-bridge:
+    volumes:
+      - ./mount/log_bridge:/cedar/log/server-bridge/
+      - cedar_ca:/cedar/ca

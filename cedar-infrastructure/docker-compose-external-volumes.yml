@@ -1,0 +1,38 @@
+version: '3.6'
+services:
+  mysql:
+    volumes:
+      - ./mount/log_mysql:/var/log/mysql
+      - ./mount/mysql_data:/var/lib/mysql
+
+  mongo:
+    volumes:
+      - ./mount/log_mongo:/data/log
+      - ./mount/mongo_data:/data/db
+      - ./mount/mongo_state:/data/state
+      - ./mount/mongo_configdb:/data/configdb
+
+  redis-persistent:
+    volumes:
+      - ./mount/log_redis:/log
+      - ./mount/redis_data:/data
+
+  opensearch:
+    volumes:
+      - ./mount/log_opensearch:/usr/share/opensearch/logs
+      - ./mount/opensearch_data:/usr/share/opensearch/data
+
+  neo4j:
+    volumes:
+      - ./mount/log_neo4j:/logs
+      - ./mount/neo4j_data:/data
+      - ./mount/neo4j_state:/state
+
+  keycloak:
+    volumes:
+      - ./mount/log_keycloak:/opt/keycloak/data/log
+      - ./mount/keycloak_state:/opt/keycloak/data/state
+  nginx:
+    volumes:
+      - ./mount/log_nginx:/etc/nginx/log
+      - cedar_cert:/usr/local/etc/certificates

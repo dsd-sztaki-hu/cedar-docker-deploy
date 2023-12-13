@@ -1,0 +1,20 @@
+version: '3.6'
+services:
+  frontend-main:
+    volumes:
+      - ./mount/log_frontend_main:/log
+  frontend-component:
+    volumes:
+      - ./mount/log_frontend_component:/log
+  frontend-openview:
+    volumes:
+      - ./mount/log_frontend_openview:/log
+  frontend-monitoring:
+    volumes:
+      - ./mount/log_frontend_monitoring:/log
+  frontend-artifacts:
+    volumes:
+      - ./mount/log_frontend_artifacts:/log
+  frontend-bridging:
+    volumes:
+      - ./mount/log_frontend_bridging:/log
