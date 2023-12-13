@@ -96,7 +96,7 @@ services:
       cedarnet:
         ipv4_address: ${CEDAR_KEYCLOAK_HOST}
     ports:
-      - ${CEDAR_KEYCLOAK_HTTP_PORT}:8080
+      - ${CEDAR_KEYCLOAK_HTTP_PORT}:${CEDAR_KEYCLOAK_HTTP_PORT}
       - ${CEDAR_KEYCLOAK_HTTPS_PORT}:8443
     volumes:
       - log_keycloak:/opt/keycloak/data/log
