@@ -143,6 +143,17 @@ services:
       - CEDAR_FRONTEND_ARTIFACTS_HOST
       - CEDAR_FRONTEND_BRIDGING_HOST
       - CEDAR_ARP_DATAVERSE_API_BACKEND_HOST_AND_PORT
+        
+  json-diff:
+    container_name: infra-json-diff
+    build: ../../cedar-docker-build/arp-json-diff
+    command: npm start
+    networks:
+      cedarnet:
+        ipv4_address: ${CEDAR_JSON_DIFF_HOST:-192.168.17.209}
+    ports:
+      - ${CEDAR_JSON_DIFF_PORT:-5173}:5173
+  
 
 networks:
   cedarnet:
