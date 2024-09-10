@@ -3,7 +3,10 @@ services:
   frontend-main:
     container_name: frontend-main
     image: "metadatacenter/cedar-frontend-main:${CEDAR_DOCKER_VERSION}"
-    build: ../../cedar-docker-build/cedar-frontend-main
+    build:
+      context: ../../cedar-docker-build/cedar-frontend-main
+      args:
+        - ARP_BRANCH_SUFFIX=${ARP_BRANCH_SUFFIX}
     networks:
       cedarnet:
         ipv4_address: ${CEDAR_FRONTEND_EDITOR_HOST}
@@ -17,6 +20,7 @@ services:
       - CEDAR_FRONTEND_ARP_DV_COLLECTION=${CEDAR_FRONTEND_ARP_DV_COLLECTION}
       - CEDAR_FRONTEND_ARP_FILE_ELEMENT_ID=${CEDAR_FRONTEND_ARP_FILE_ELEMENT_ID}
       - CEDAR_FRONTEND_ARP_DATASET_ELEMENT_ID=${CEDAR_FRONTEND_ARP_DATASET_ELEMENT_ID}
+      - ARP_BRANCH_SUFFIX=${ARP_BRANCH_SUFFIX}
   frontend-component:
     container_name: frontend-component
     image: "metadatacenter/cedar-frontend-component:${CEDAR_DOCKER_VERSION}"
