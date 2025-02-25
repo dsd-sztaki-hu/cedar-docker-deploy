@@ -37,3 +37,5 @@ services:
       - ./mount/log_nginx:/etc/nginx/log
       - cedar_cert:/usr/local/etc/certificates
       - /home/dataverse/describo-react/build:/usr/share/nginx/html/aroma
+      # In demo we serve the host's /var/www/html/dataverse-previewers via nginx via dataverse domain
+      - /var/www/html/dataverse-previewers:/var/www/html/dataverse-previewers
