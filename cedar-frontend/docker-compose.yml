@@ -1,4 +1,3 @@
-version: '3.6'
 services:
   frontend-main:
     container_name: frontend-main
@@ -27,11 +26,11 @@ services:
     build: ../../cedar-docker-build/cedar-frontend-component
     networks:
       cedarnet:
-        ipv4_address: ${CEDAR_FRONTEND_COMPONENT_HOST}
+        ipv4_address: ${CEDAR_FRONTEND_CONTENT_HOST}
     ports:
-      - "${CEDAR_FRONTEND_COMPONENT_PORT}:4240"
+      - "${CEDAR_FRONTEND_CONTENT_PORT}:4240"
     volumes:
-      - log_frontend_component:/log
+      - log_frontend_content:/log
     environment:
       - CEDAR_HOST
   frontend-openview:
@@ -95,8 +94,8 @@ networks:
 volumes:
   log_frontend_main:
     name: log_frontend_main
-  log_frontend_component:
-    name: log_frontend_component
+  log_frontend_content:
+    name: log_frontend_content
   log_frontend_openview:
     name: log_frontend_openview
   log_frontend_monitoring:
