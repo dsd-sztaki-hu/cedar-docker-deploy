@@ -3,9 +3,9 @@ services:
   frontend-main:
     volumes:
       - ./mount/log_frontend_main:/log
-  frontend-component:
+  frontend-content:
     volumes:
-      - ./mount/log_frontend_component:/log
+      - ./mount/log_frontend_content:/log
   frontend-openview:
     volumes:
       - ./mount/log_frontend_openview:/log
