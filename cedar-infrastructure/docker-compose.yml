@@ -90,7 +90,14 @@ services:
   keycloak:
     container_name: infra-keycloak
     image: "metadatacenter/cedar-infra-keycloak:${CEDAR_DOCKER_VERSION}"
-    build: ../../cedar-docker-build/cedar-infra-keycloak
+    build:
+      context: ../../cedar-docker-build/cedar-infra-keycloak
+      args:
+        CEDAR_MAVEN_REPO_URL: ${CEDAR_MAVEN_REPO_URL:-https://nexus.bmir.stanford.edu}
+        CEDAR_MAVEN_SNAPSHOTS_URL: ${CEDAR_MAVEN_SNAPSHOTS_URL:-https://nexus.bmir.stanford.edu/repository/snapshots}
+        CEDAR_MAVEN_RELEASES_URL: ${CEDAR_MAVEN_RELEASES_URL:-https://nexus.bmir.stanford.edu/repository/releases}
+        CEDAR_NEXUS_USERNAME: ${CEDAR_NEXUS_USERNAME:-}
+        CEDAR_NEXUS_PASSWORD: ${CEDAR_NEXUS_PASSWORD:-}
     networks:
       cedarnet:
         ipv4_address: ${CEDAR_KEYCLOAK_HOST}

@@ -10,7 +10,14 @@ services:
       - cedar-java
     container_name: cedar-microservice
     image: "metadatacenter/cedar-microservice:${CEDAR_DOCKER_VERSION}"
-    build: ../../cedar-docker-build/cedar-microservice
+    build:
+      context: ../../cedar-docker-build/cedar-microservice
+      args:
+        CEDAR_MAVEN_REPO_URL: ${CEDAR_MAVEN_REPO_URL:-https://nexus.bmir.stanford.edu}
+        CEDAR_MAVEN_SNAPSHOTS_URL: ${CEDAR_MAVEN_SNAPSHOTS_URL:-https://nexus.bmir.stanford.edu/repository/snapshots}
+        CEDAR_MAVEN_RELEASES_URL: ${CEDAR_MAVEN_RELEASES_URL:-https://nexus.bmir.stanford.edu/repository/releases}
+        CEDAR_NEXUS_USERNAME: ${CEDAR_NEXUS_USERNAME:-}
+        CEDAR_NEXUS_PASSWORD: ${CEDAR_NEXUS_PASSWORD:-}
     networks:
       - cedarnet
     volumes:

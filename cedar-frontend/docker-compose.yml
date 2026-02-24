@@ -5,7 +5,8 @@ services:
     build:
       context: ../../cedar-docker-build/cedar-frontend-main
       args:
-        - ARP_BRANCH_SUFFIX=${ARP_BRANCH_SUFFIX}
+        CEDAR_NPM_REGISTRY: ${CEDAR_NPM_REGISTRY:-https://nexus.bmir.stanford.edu/repository/npm-cedar}
+        ARP_BRANCH_SUFFIX: ${ARP_BRANCH_SUFFIX:-}
     networks:
       cedarnet:
         ipv4_address: ${CEDAR_FRONTEND_EDITOR_HOST}
